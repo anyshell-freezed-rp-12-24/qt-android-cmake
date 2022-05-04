@@ -9,15 +9,24 @@ buildscript {
     }
 }
 
-repositories {
-    google()
-    jcenter()
+allprojects {
+    repositories {
+        google()
+        jcenter()
+
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Xdiags:verbose"
+        }
+    }
 }
 
 apply plugin: 'com.android.application'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation 'com.android.support:appcompat-v7:27.0.0'
 }
 
 android {
